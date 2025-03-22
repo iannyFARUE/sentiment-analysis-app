@@ -1,0 +1,33 @@
+# Ignore all model files
+*.pkl
+
+# Ignore all data files
+*.csv
+
+# Ignore Python cache files
+__pycache__/
+
+# Ignore Python bytecode files
+*.pyc
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.tmp
+
+# Ignore temporary files created by editors
+*.swp
+
+# Ignore swap files created by Vim
+*.swo
+
+# Ignore swap files created by Vim
+# Ignore backup files created by editors
+*~
+
+# Ignore virtual environment directories
+venv/
+env/
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
