@@ -1,1 +1,5 @@
-fastapi[standard]
+fastapi[standard]==0.113.0
+pydantic==2.8.0
+scikit-learn==1.6.1
+pandas==2.2.3
+nltk==3.9.1
