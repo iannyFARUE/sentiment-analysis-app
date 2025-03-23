@@ -31,7 +31,7 @@ function App() {
       <br />
       <button onClick={predictSentiment}>Predict Sentiment</button>
       {sentiment && (
-        <div>
+        <div className="result">
           <h2>Sentiment: {sentiment}</h2>
           <h3>Confidence: {(confidence * 100).toFixed(1)}%</h3>
         </div>
