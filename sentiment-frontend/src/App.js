@@ -1,37 +1,57 @@
+// src/App.js
 import React, { useState } from "react";
-import "./App.css";
 import axios from "axios";
+import { FaFilm } from "react-icons/fa";
+import { ClipLoader } from "react-spinners";
+import "./App.css";
 
 function App() {
   const [review, setReview] = useState("");
-  const [sentiment, setSentiment] = useState("");
+  const [sentiment, setSentiment] = useState(null);
   const [confidence, setConfidence] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const predictSentiment = () => {
+    setLoading(true);
+    setSentiment(null);
+
     axios
-      .post("http://localhost:8000/predict", { text: review })
+      .post("http://127.0.0.1:8000/predict", { text: review })
       .then((response) => {
         setSentiment(response.data.sentiment);
         setConfidence(response.data.confidence);
+        setLoading(false);
       })
       .catch((error) => {
-        console.error("There was an error!", error);
+        console.error("API Error:", error);
+        setLoading(false);
       });
   };
+
   return (
     <div className="App">
-      <h1>Sentiment Analysis</h1>
+      <div className="header">
+        <FaFilm size={40} color="#007BFF" />
+        <h1>Movie Review Sentiment Analyzer</h1>
+      </div>
+
       <textarea
-        rows="4"
-        cols="50"
-        placeholder="Enter your review here..."
+        placeholder="🎬 Enter your movie review here..."
         value={review}
         onChange={(e) => setReview(e.target.value)}
       />
-      <br />
-      <button onClick={predictSentiment}>Predict Sentiment</button>
-      {sentiment && (
-        <div className="result">
+      <button onClick={predictSentiment} disabled={loading || !review.trim()}>
+        {loading ? "Analyzing..." : "Analyze Sentiment"}
+      </button>
+
+      {loading && (
+        <div className="loader">
+          <ClipLoader color="#007BFF" loading={loading} size={50} />
+        </div>
+      )}
+
+      {sentiment && !loading && (
+        <div className={`result ${sentiment.toLowerCase()}`}>
           <h2>Sentiment: {sentiment}</h2>
           <h3>Confidence: {(confidence * 100).toFixed(1)}%</h3>
         </div>
